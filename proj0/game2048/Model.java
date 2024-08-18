@@ -121,15 +121,20 @@ public class Model extends Observable {
                 if(t == null) {
                     continue;
                 }
-                if(i > j && board.tile(col, i) != null && board.tile(col, i).value() != t.value()) {
-                    i--;
-                } else if(board.tile(col, i) == null) {
-                    board.move(col, i, t);
-                } else if(board.tile(col, i).value() == t.value()) {
-                    board.move(col, i, t);
-                    score += board.tile(col, i).value();
+                while(i > j && board.tile(col, i) != null && board.tile(col, i).value() != t.value()) {
                     i--;
                 }
+                if(i == j) {
+                    continue;
+                }
+                if(board.tile(col, i) == null) {
+                    board.move(col, i, t);
+                } else if(board.tile(col, i).value() == t.value()) {
+                        board.move(col, i, t);
+                        score += board.tile(col, i).value();
+                        i--;
+                }
+
                 changed = true;
             }
         }
